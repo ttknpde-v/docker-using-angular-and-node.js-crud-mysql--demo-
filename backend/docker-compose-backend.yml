@@ -1,0 +1,15 @@
+version: '3'
+services:
+  backend:
+    container_name: api
+    build:
+      context: . # relative to docker-compose command running directory (.) means this folder
+      dockerfile: dockers/nodejs/Dockerfile # specify path to Dockerfile it starts on current folder application
+    image: nodejs
+    ports:
+      - '3200:3000'
+      # I will access backend by port 3200
+    links: # to link containers over a network. When we link containers, Docker creates environment variables and adds containers to the known hosts list
+      - database
+    volumes:
+      - information-database:/var/lib/mysql
